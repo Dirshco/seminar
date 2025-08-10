@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed Seminar Modules & Examples</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Soothing Neutrals" (Beige, Slate, Sage, Coral Accent) -->
+    <!-- Application Structure Plan: A single-page, multi-section application with a sticky header for navigation. The primary sections are "Overview," "Modules," "Speakers," and "Process Flow." The key change for this version is within the "Modules" section, which now uses a tabbed interface. Each tab corresponds to a specific module and, when clicked, reveals a dedicated content block with a detailed explanation, a concrete example, and the description of its interactive activity. This structure was chosen to provide detailed information on demand without cluttering the page, allowing users to focus on one module's specifics at a time, which is ideal for a deep dive into the content. -->
+    <!-- Visualization & Content Choices: 1. Agenda -> Goal: Inform/Organize -> Viz: Interactive Horizontal Bar Chart (Timeline) -> Interaction: Hover for details on topic/speaker -> Justification: Retained from the previous version for a quick, visual agenda summary -> Library: Chart.js. 2. Modules -> Goal: Inform/Detail -> Viz: Tabbed Interface -> Interaction: Click on a tab to reveal detailed content block -> Justification: This is the core of the new design, providing a structured way to present the requested detailed examples and explanations for each module without making the page excessively long -> Method: HTML/CSS/JS. 3. Systematic Review Process -> Goal: Inform/Organize -> Viz: Canvas-based Flowchart -> Interaction: Static visual summary -> Justification: Visually simplifies the overall workflow, connecting the detailed modules into a larger process -> Method: HTML Canvas API/JS. 4. Speaker Info -> Goal: Inform -> Viz: Profile Cards -> Interaction: Static display with role and topic info -> Justification: Clearly presents speaker information, linking them contextually to the modules they will cover -> Method: HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F3;
+            color: #4A5568;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #E57373;
+            border-bottom-color: #E57373;
+        }
+        .module-tab {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .module-tab.active {
+            background-color: #E57373;
+            color: #ffffff;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Systematic Reviews for IMGs</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Overview</a>
+                <a href="#modules" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Modules</a>
+                <a href="#speakers" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Speakers</a>
+                <a href="#process" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Process Flow</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="overview">Overview</option>
+                    <option value="modules">Modules</option>
+                    <option value="speakers">Speakers</option>
+                    <option value="process">Process Flow</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="overview" class="content-section active">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">A Practical Workshop</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                This interactive seminar is designed to equip International Medical Graduates (IMGs) with the foundational knowledge and practical skills to successfully plan, conduct, and publish a systematic review. Explore the agenda and key topics below.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-center text-gray-700">Seminar Agenda (3 Hours)</h3>
+                <div class="chart-container">
+                    <canvas id="agendaChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="modules" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Detailed Seminar Modules</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                The seminar is divided into five core modules. Click on any module below to see a detailed explanation, a concrete example, and the hands-on activity for that section.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg active">Module 1</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 2</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 3</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 4</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 5</button>
+                </div>
+                <div id="tab-content-container">
+                    <!-- Tab content will be dynamically generated here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="speakers" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Meet the Speakers</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                Our seminar features eight expert speakers, each bringing a wealth of experience in clinical research and systematic reviews. They will guide you through each module and are available for questions throughout the workshop.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Speaker cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="process" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">The Systematic Review Process</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                Understanding the overall workflow is key. This interactive diagram illustrates the major steps in conducting a systematic review, from framing your initial question to publishing your findings. This visualization helps connect the concepts discussed in the different modules into a single, coherent process.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                 <canvas id="processFlowCanvas" width="800" height="600" class="mx-auto"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-16 py-6">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2025 TGRF - The Combined Research Foundation. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        const moduleData = [
+            {
+                title: 'Module 1: Laying the Groundwork',
+                topic: 'Introduction to Systematic Reviews',
+                content: 'This module covers the fundamentals of a systematic review. The content focuses on framing a compelling research question using the PICO framework ($P$opulation, $I$ntervention, $C$omparison, $O$utcome), defining the inclusion and exclusion criteria for studies, and the importance of registering a protocol on platforms like PROSPERO.',
+                example: 'A new drug is being tested for patients with type 2 diabetes. A PICO question would be: "In patients with type 2 diabetes ($P$), does the new drug ($I$) compared to standard metformin therapy ($C$) reduce their HbA1c levels ($O$)?".',
+                activity: 'Participants would be given a different clinical scenario and would then work to formulate a PICO question themselves.'
+            },
+            {
+                title: 'Module 2: The Search Strategy',
+                topic: 'Building a Comprehensive Search Query',
+                content: 'This part of the seminar is dedicated to creating a robust search strategy. The speakers explain how to use boolean operators to develop a comprehensive search string and demonstrate how to search key databases such as PubMed, Embase, and Cochrane. They also provide tips on how IMGs can access these resources.',
+                example: 'Using the PICO question from Module 1, a mock search string might look like this: "type 2 diabetes" AND ("new drug" OR "novel therapy") AND "metformin" AND "HbA1c".',
+                activity: 'Participants would be given a different PICO question and would practice building a search string using Boolean operators like AND, OR, and NOT.'
+            },
+            {
+                title: 'Module 3: Screening & Data Extraction',
+                topic: 'Managing and Organizing Studies',
+                content: 'This section covers how to manage and organize the studies you have found. The content covers a two-step screening process (first by title/abstract, then by full-text) and introduces systematic review software like Covidence and Rayyan. The speakers also discuss how to create and pilot a data extraction form.',
+                example: 'You might find a title like "A randomized controlled trial of insulin versus a novel compound for glycemic control." You would then extract specific details from the full text, such as the sample size, patient demographics, and the primary outcome data (the HbA1c values).',
+                activity: 'Groups would be given a set of sample titles and abstracts to practice the screening process, followed by a full-text article to practice filling out a data extraction form.'
+            },
+            {
+                title: 'Module 4: Quality Assessment & Synthesis',
+                topic: 'Evaluating and Combining Study Findings',
+                content: 'This module explains how to evaluate the quality of the research and combine the results. The speaker discusses how to assess the risk of bias in included studies and gives an introduction to meta-analysis, explaining what it is and when it is appropriate. They also cover the synthesis of findings and the use of the PRISMA diagram.',
+                example: 'A study might be identified as having a high risk of bias if the researchers knew which participants received the new drug and which received the placebo. This could influence how they measure the outcomes.',
+                activity: 'Groups are given an actual study and asked to identify potential sources of bias, such as unblinded participants or selective reporting of results.'
+            },
+            {
+                title: 'Module 5: Writing & Publishing',
+                topic: 'Disseminating Your Research',
+                content: 'This final module provides guidance on turning the research into a publishable paper. The content outlines how to structure a systematic review manuscript, focusing on the key sections: Introduction, Methods, Results, and Discussion. The speaker also offers guidance on navigating the peer review process and journal submission.',
+                example: 'An abstract might be missing key information about the number of studies included in the review or the main finding. Participants would learn how to identify and correct such issues.',
+                activity: 'Groups are given a poorly written abstract and are asked to provide constructive feedback on how to improve it, ensuring all necessary components are present.'
+            }
+        ];
+
+        const speakerData = [
+            { name: 'Speaker 1', role: 'Seminar Lead', topic: 'Introduction' },
+            { name: 'Speaker 2', role: 'Research Methodologist', topic: 'Module 1' },
+            { name: 'Speaker 3', role: 'Medical Librarian', topic: 'Module 2' },
+            { name: 'Speaker 4', role: 'Clinical Researcher', topic: 'Module 2' },
+            { name: 'Speaker 5', role: 'Data Scientist', topic: 'Module 3' },
+            { name: 'Speaker 6', role: 'Epidemiologist', topic: 'Module 3' },
+            { name: 'Speaker 7', role: 'Biostatistician', topic: 'Module 4' },
+            { name: 'Speaker 8', role: 'Journal Editor', topic: 'Module 5' }
+        ];
+
+        function showSection(id) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === id) {
+                    section.classList.add('active');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+            mobileNav.value = id;
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href').substring(1);
+                showSection(targetId);
+            });
+        });
+
+        mobileNav.addEventListener('change', (e) => {
+            showSection(e.target.value);
+        });
+
+        function populateTabs() {
+            const tabsContainer = document.getElementById('tab-content-container');
+            let tabsHtml = '';
+            moduleData.forEach((module, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                tabsHtml += `
+                    <div class="tab-content p-4 ${isActive}" data-tab-id="module-${index + 1}">
+                        <h3 class="text-2xl font-bold mb-2 text-gray-800">${module.title}</h3>
+                        <p class="text-lg text-emerald-700 font-semibold mb-4">${module.topic}</p>
+                        <p class="mb-4">${module.content}</p>
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-emerald-400 mb-4">
+                            <p class="font-bold text-gray-700">Example:</p>
+                            <p>${module.example}</p>
+                        </div>
+                        <div class="bg-gray-100 p-4 rounded-lg border-l-4 border-emerald-600">
+                            <p class="font-bold text-gray-700">Interactive Activity:</p>
+                            <p>${module.activity}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            tabsContainer.innerHTML = tabsHtml;
+
+            const tabButtons = document.querySelectorAll('.module-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach((button, index) => {
+                if (index === 0) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents[index].classList.add('active');
+                });
+            });
+        }
+
+        function populateSpeakers() {
+            const container = document.querySelector('#speakers .grid');
+            container.innerHTML = '';
+            speakerData.forEach(speaker => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-lg shadow-md text-center';
+                card.innerHTML = `
+                    <div class="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center">
+                        <span class="text-gray-500 text-3xl font-bold">${speaker.name.charAt(0)}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">${speaker.name}</h3>
+                    <p class="text-gray-600">${speaker.role}</p>
+                    <p class="text-sm text-emerald-600 mt-1">Topic: ${speaker.topic}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        const agendaData = {
+            labels: [
+                'Introduction', 'Module 1', 'Module 2', 'Break', 'Module 3', 'Module 4', 'Module 5', 'Q&A'
+            ],
+            datasets: [{
+                label: 'Seminar Schedule',
+                data: [
+                    [0, 10], [10, 30], [30, 60], [60, 75], [75, 105], [105, 135], [135, 160], [160, 180]
+                ],
+                backgroundColor: [
+                    'rgba(110, 231, 183, 0.7)',
+                    'rgba(52, 211, 153, 0.7)',
+                    'rgba(16, 185, 129, 0.7)',
+                    'rgba(139, 149, 162, 0.5)',
+                    'rgba(5, 150, 105, 0.7)',
+                    'rgba(4, 120, 87, 0.7)',
+                    'rgba(6, 95, 70, 0.7)',
+                    'rgba(229, 115, 115, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(110, 231, 183, 1)',
+                    'rgba(52, 211, 153, 1)',
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(139, 149, 162, 1)',
+                    'rgba(5, 150, 105, 1)',
+                    'rgba(4, 120, 87, 1)',
+                    'rgba(6, 95, 70, 1)',
+                    'rgba(229, 115, 115, 1)'
+                ],
+                borderWidth: 1,
+                barPercentage: 0.8,
+                categoryPercentage: 0.9
+            }]
+        };
+
+        const agendaConfig = {
+            type: 'bar',
+            data: agendaData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const duration = context.raw[1] - context.raw[0];
+                                return `${context.label}: ${duration} mins`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 180,
+                        title: {
+                            display: true,
+                            text: 'Time in Minutes'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('agendaChart'), agendaConfig);
+
+        function drawProcessFlow() {
+            const canvas = document.getElementById('processFlowCanvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const steps = [
+                { text: 'Frame Question (PICO)', x: width * 0.2, y: height * 0.15 },
+                { text: 'Develop Protocol', x: width * 0.5, y: height * 0.15 },
+                { text: 'Literature Search', x: width * 0.8, y: height * 0.15 },
+                { text: 'Screen Studies', x: width * 0.8, y: height * 0.5 },
+                { text: 'Extract Data', x: width * 0.5, y: height * 0.5 },
+                { text: 'Assess Quality', x: width * 0.2, y: height * 0.5 },
+                { text: 'Synthesize & Analyze', x: width * 0.2, y: height * 0.85 },
+                { text: 'Write & Publish', x: width * 0.5, y: height * 0.85 },
+            ];
+
+            function drawArrow(from, to) {
+                const headlen = 10;
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                const angle = Math.atan2(dy, dx);
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.lineTo(to.x - headlen * Math.cos(angle - Math.PI / 6), to.y - headlen * Math.sin(angle - Math.PI / 6));
+                ctx.moveTo(to.x, to.y);
+                ctx.lineTo(to.x - headlen * Math.cos(angle + Math.PI / 6), to.y - headlen * Math.sin(angle + Math.PI / 6));
+                ctx.strokeStyle = '#A5B4FC';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            function drawBox(step) {
+                ctx.fillStyle = '#E0E7FF';
+                ctx.strokeStyle = '#A5B4FC';
+                ctx.lineWidth = 2;
+                const textMetrics = ctx.measureText(step.text);
+                const boxWidth = textMetrics.width + 40;
+                const boxHeight = 50;
+                ctx.beginPath();
+                ctx.roundRect(step.x - boxWidth / 2, step.y - boxHeight / 2, boxWidth, boxHeight, [10]);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = '#3730A3';
+                ctx.font = '14px Inter';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(step.text, step.x, step.y);
+            }
+            
+            ctx.clearRect(0, 0, width, height);
+
+            drawArrow(steps[0], steps[1]);
+            drawArrow(steps[1], steps[2]);
+            drawArrow({x: steps[2].x, y: steps[2].y + 25}, {x: steps[3].x, y: steps[3].y - 25});
+            drawArrow(steps[3], steps[4]);
+            drawArrow(steps[4], steps[5]);
+            drawArrow({x: steps[5].x, y: steps[5].y + 25}, {x: steps[6].x, y: steps[6].y - 25});
+            drawArrow(steps[6], steps[7]);
+            
+            steps.forEach(drawBox);
+        }
+
+        populateTabs();
+        populateSpeakers();
+        drawProcessFlow();
+        showSection('overview');
+    });
+</script>
+
+</body>
+</html>
