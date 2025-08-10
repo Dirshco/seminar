@@ -22,10 +22,10 @@
             color: #E57373;
             border-bottom-color: #E57373;
         }
-        .module-tab, .process-tab {
+        .module-tab, .process-tab, .example-tab {
             transition: background-color 0.3s, color 0.3s;
         }
-        .module-tab.active, .process-tab.active {
+        .module-tab.active, .process-tab.active, .example-tab.active {
             background-color: #E57373;
             color: #ffffff;
         }
@@ -130,7 +130,7 @@
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
                 Our seminar features eight expert speakers, each bringing a wealth of experience in clinical research and systematic reviews. They will guide you through each module and are available for questions throughout the workshop.
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div id="speakers-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Speaker cards will be injected here by JS -->
             </div>
         </section>
@@ -141,17 +141,17 @@
                 Understanding the overall workflow is key. This interactive guide illustrates the major steps in conducting a systematic review. Click on each step to learn more.
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
-                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
+                <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 1</button>
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 2</button>
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 3</button>
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 4</button>
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 5</button>
                     <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 6</button>
-                 </div>
-                 <div id="process-tab-content-container">
+                </div>
+                <div id="process-tab-content-container">
                     <!-- Process flow content will be dynamically generated here -->
-                 </div>
+                </div>
             </div>
         </section>
 
@@ -162,7 +162,7 @@
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg active">Example 1</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 1</button>
                     <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 2</button>
                     <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 3</button>
                     <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 4</button>
@@ -225,7 +225,7 @@
                 activity: 'Groups are given a poorly written abstract and are asked to provide constructive feedback on how to improve it, ensuring all necessary components are present.'
             }
         ];
-        
+
         const processData = [
             {
                 title: 'Step 1: Frame the Question',
@@ -253,20 +253,17 @@
             }
         ];
 
-
-        / Speaker data with placeholder images
+        // Corrected speaker data: removed duplicate entry
         const speakerData = [
-            { name: 'Dr. Ahmed Khalifa', role: 'Seminar Lead', topic: 'Introduction', imageUrl: 'https://placehold.co/150x150/e0e0e0/ffffff?text=JD' },
-            { name: 'Dr. Sana Ibrahim', role: 'Research Methodologist', topic: 'Module 1', imageUrl: 'https://placehold.co/150x150/d0d0d0/ffffff?text=JS' },
-            { name: 'Dr. Sujood Elhassan', role: 'Medical Librarian', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/c0c0c0/ffffff?text=EC' },
-            { name: 'Dr. Rofida Ahmed', role: 'Clinical Researcher', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/b0b0b0/ffffff?text=ML' },
-            { name: 'Dr. Reem Ahmed', role: 'Data Scientist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/a0a0a0/ffffff?text=SR' },
-            { name: 'Dr. Ayman Hassan', role: 'Epidemiologist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/909090/ffffff?text=DK' },
-            { name: 'Dr. Wiam Osman', role: 'Biostatistician', topic: 'Module 4', imageUrl: 'https://placehold.co/150x150/808080/ffffff?text=OW' },
-            { name: 'Dr. Wiam Osman', role: 'Biostatistician', topic: 'Module 4', imageUrl: 'https://placehold.co/150x150/808080/ffffff?text=JW' },
-            { name: 'Dr. Limia Salih', role: 'Moderator', topic: 'Moderator', imageUrl: 'https://placehold.co/150x150/707070/ffffff?text=PJ' }
+            { name: 'Dr. Ahmed Khalifa', role: 'Seminar Lead', topic: 'Introduction', imageUrl: 'https://placehold.co/150x150/e0e0e0/ffffff?text=AK' },
+            { name: 'Dr. Sana Ibrahim', role: 'Research Methodologist', topic: 'Module 1', imageUrl: 'https://placehold.co/150x150/d0d0d0/ffffff?text=SI' },
+            { name: 'Dr. Sujood Elhassan', role: 'Medical Librarian', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/c0c0c0/ffffff?text=SE' },
+            { name: 'Dr. Rofida Ahmed', role: 'Clinical Researcher', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/b0b0b0/ffffff?text=RA' },
+            { name: 'Dr. Reem Ahmed', role: 'Data Scientist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/a0a0a0/ffffff?text=RA' },
+            { name: 'Dr. Ayman Hassan', role: 'Epidemiologist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/909090/ffffff?text=AH' },
+            { name: 'Dr. Wiam Osman', role: 'Biostatistician', topic: 'Module 4', imageUrl: 'https://placehold.co/150x150/808080/ffffff?text=WO' },
+            { name: 'Dr. Limia Salih', role: 'Moderator', topic: 'Moderator', imageUrl: 'https://placehold.co/150x150/707070/ffffff?text=LS' }
         ];
-
 
         const abstractData = [
             {
@@ -444,103 +441,80 @@
             });
         }
 
-    function populateSpeakers() {
-            const container = document.querySelector('#speakers .grid');
-            container.innerHTML = '';
+        function populateSpeakers() {
+            const container = document.getElementById('speakers-container');
+            let speakersHtml = '';
             speakerData.forEach(speaker => {
-                const card = document.createElement('div');
-                card.className = 'bg-white p-6 rounded-lg shadow-md text-center';
-                card.innerHTML = `
-                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                        <img src="${speaker.imageUrl}" alt="Portrait of ${speaker.name}" class="w-full h-full object-cover rounded-full">
+                speakersHtml += `
+                    <div class="abstract-card p-4 text-center">
+                        <img src="${speaker.imageUrl}" alt="${speaker.name}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h4 class="font-semibold text-lg text-gray-800">${speaker.name}</h4>
+                        <p class="text-sm text-gray-600">${speaker.role}</p>
+                        <p class="text-xs text-gray-400 mt-1">Topic: ${speaker.topic}</p>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800">${speaker.name}</h3>
-                    <p class="text-gray-600">${speaker.role}</p>
-                    <p class="text-sm text-emerald-600 mt-1">Topic: ${speaker.topic}</p>
                 `;
-                container.appendChild(card);
             });
+            container.innerHTML = speakersHtml;
         }
 
-        const agendaData = {
-            labels: [
-                'Introduction', 'Module 1', 'Module 2', 'Break', 'Module 3', 'Module 4', 'Module 5', 'Q&A'
-            ],
-            datasets: [{
-                label: 'Seminar Schedule',
-                data: [
-                    [0, 10], [10, 30], [30, 60], [60, 75], [75, 105], [105, 135], [135, 160], [160, 180]
-                ],
-                backgroundColor: [
-                    'rgba(110, 231, 183, 0.7)',
-                    'rgba(52, 211, 153, 0.7)',
-                    'rgba(16, 185, 129, 0.7)',
-                    'rgba(139, 149, 162, 0.5)',
-                    'rgba(5, 150, 105, 0.7)',
-                    'rgba(4, 120, 87, 0.7)',
-                    'rgba(6, 95, 70, 0.7)',
-                    'rgba(229, 115, 115, 0.7)'
-                ],
-                borderColor: [
-                    'rgba(110, 231, 183, 1)',
-                    'rgba(52, 211, 153, 1)',
-                    'rgba(16, 185, 129, 1)',
-                    'rgba(139, 149, 162, 1)',
-                    'rgba(5, 150, 105, 1)',
-                    'rgba(4, 120, 87, 1)',
-                    'rgba(6, 95, 70, 1)',
-                    'rgba(229, 115, 115, 1)'
-                ],
-                borderWidth: 1,
-                barPercentage: 0.8,
-                categoryPercentage: 0.9
-            }]
-        };
-
-        const agendaConfig = {
-            type: 'bar',
-            data: agendaData,
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const duration = context.raw[1] - context.raw[0];
-                                return `${context.label}: ${duration} mins`;
+        function createAgendaChart() {
+            const ctx = document.getElementById('agendaChart').getContext('2d');
+            const agendaChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Module 1 (30 min)', 'Module 2 (30 min)', 'Module 3 (45 min)', 'Module 4 (45 min)', 'Module 5 (30 min)'],
+                    datasets: [{
+                        data: [30, 30, 45, 45, 30],
+                        backgroundColor: [
+                            '#E57373', // A warm, engaging color
+                            '#81C784', // A fresh, clinical color
+                            '#64B5F6', // A calm, intellectual color
+                            '#FFB74D', // A bright, energetic color
+                            '#BA68C8'  // A creative, dynamic color
+                        ],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 14
+                                },
+                                color: '#4A5568'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.raw !== null) {
+                                        label += context.raw + ' min';
+                                    }
+                                    return label;
+                                }
                             }
                         }
                     }
-                },
-                scales: {
-                    x: {
-                        min: 0,
-                        max: 180,
-                        title: {
-                            display: true,
-                            text: 'Time in Minutes'
-                        }
-                    },
-                    y: {
-                        stacked: true
-                    }
                 }
-            }
-        };
-
-        const agendaChart = new Chart(document.getElementById('agendaChart'), agendaConfig);
+            });
+        }
         
-        // Initial setup calls
+        // Call all the functions to populate the page and set the initial state
         populateTabs();
-        populateSpeakers();
-        populateAbstractTabs();
         populateProcessFlowTabs();
+        populateAbstractTabs();
+        populateSpeakers();
+        createAgendaChart();
         showSection('overview');
+
     });
 </script>
 </body>
