@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: "Soothing Neutrals" (Beige, Slate, Sage, Coral Accent) -->
-    <!-- Application Structure Plan: A single-page, multi-section application with a sticky header for navigation. The primary sections are "Overview," "Modules," "Speakers," and "Process Flow." The key change for this version is within the "Modules" section, which now uses a tabbed interface. Each tab corresponds to a specific module and, when clicked, reveals a dedicated content block with a detailed explanation, a concrete example, and the description of its interactive activity. This structure was chosen to provide detailed information on demand without cluttering the page, allowing users to focus on one module's specifics at a time, which is ideal for a deep dive into the content. -->
-    <!-- Visualization & Content Choices: 1. Agenda -> Goal: Inform/Organize -> Viz: Interactive Horizontal Bar Chart (Timeline) -> Interaction: Hover for details on topic/speaker -> Justification: Retained from the previous version for a quick, visual agenda summary -> Library: Chart.js. 2. Modules -> Goal: Inform/Detail -> Viz: Tabbed Interface -> Interaction: Click on a tab to reveal detailed content block -> Justification: This is the core of the new design, providing a structured way to present the requested detailed examples and explanations for each module without making the page excessively long -> Method: HTML/CSS/JS. 3. Systematic Review Process -> Goal: Inform/Organize -> Viz: Canvas-based Flowchart -> Interaction: Static visual summary -> Justification: Visually simplifies the overall workflow, connecting the detailed modules into a larger process -> Method: HTML Canvas API/JS. 4. Speaker Info -> Goal: Inform -> Viz: Profile Cards -> Interaction: Static display with role and topic info -> Justification: Clearly presents speaker information, linking them contextually to the modules they will cover -> Method: HTML/CSS. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -26,10 +22,10 @@
             color: #E57373;
             border-bottom-color: #E57373;
         }
-        .module-tab {
+        .module-tab, .process-tab {
             transition: background-color 0.3s, color 0.3s;
         }
-        .module-tab.active {
+        .module-tab.active, .process-tab.active {
             background-color: #E57373;
             color: #ffffff;
         }
@@ -57,9 +53,6 @@
             .chart-container {
                 height: 250px;
             }
-        }
-        .container {
-            max-width: 800px;
         }
         .abstract-card {
             background-color: #fffff9;
@@ -100,7 +93,7 @@
 
     <main class="container mx-auto px-6 py-12">
 
-        <section id="overview" class="content-section active">
+        <section id="overview" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">A Practical Workshop</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
                 This interactive seminar is designed to equip International Medical Graduates (IMGs) with the foundational knowledge and practical skills to successfully plan, conduct, and publish a systematic review. Explore the agenda and key topics below.
@@ -120,7 +113,7 @@
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg active">Module 1</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 1</button>
                     <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 2</button>
                     <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 3</button>
                     <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 4</button>
@@ -145,135 +138,39 @@
         <section id="process" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">The Systematic Review Process</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
-                Understanding the overall workflow is key. This interactive diagram illustrates the major steps in conducting a systematic review, from framing your initial question to publishing your findings. This visualization helps connect the concepts discussed in the different modules into a single, coherent process.
+                Understanding the overall workflow is key. This interactive guide illustrates the major steps in conducting a systematic review. Click on each step to learn more.
             </p>
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                 <canvas id="processFlowCanvas" width="800" height="600" class="mx-auto"></canvas>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 1</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 2</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 3</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 4</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 5</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 6</button>
+                 </div>
+                 <div id="process-tab-content-container">
+                    <!-- Process flow content will be dynamically generated here -->
+                 </div>
             </div>
         </section>
 
         <section id="examples" class="content-section">
-            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Examples</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Abstract Examples</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
-Examples
+                These examples demonstrate the structure and content of abstracts for different types of systematic reviews and meta-analyses.
             </p>
-
-            <div class="container mx-auto">
-        <h1 class="text-4xl font-bold text-center mb-8 abstract-title">Sample Systematic Review Abstracts</h1>
-        <p class="text-center text-lg mb-12">
-            These examples demonstrate the structure and content of abstracts for different types of systematic reviews and meta-analyses.
-        </p>
-
-
-        </p>
-        <!-- Abstract 1 -->
-        <div class="abstract-card p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4 abstract-title">1. Usage of Mobile Applications in Behavioral Health: A Systematic Literature Review</h2>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Introduction:</span> Mobile health (mHealth) applications are an emerging tool in behavioral health, offering new avenues for patient support and monitoring. This review aims to systematically analyze the efficacy, usability, and impact of mobile applications on patient outcomes in behavioral health settings.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Methods:</span> A comprehensive search was conducted across PubMed, Embase, and PsycINFO using a predefined PICO framework. Two independent reviewers screened titles and abstracts, followed by full-text review, to identify randomized controlled trials and observational studies published between 2015 and 2024. Data on application features, patient population, intervention type, and outcomes were extracted and synthesized.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Results:</span> The search yielded 45 studies meeting the inclusion criteria. Key findings indicate that applications offering cognitive-behavioral therapy (CBT) modules and real-time monitoring significantly improved patient self-reported mood and adherence to treatment plans. However, significant heterogeneity was observed in study design and outcome measures, precluding a formal meta-analysis.
-            </p>
-            
-            <p>
-                <span class="font-bold section-heading">Conclusion:</span> Mobile applications show promise as a supplementary tool in behavioral health. Future research should standardize outcome measures and focus on long-term follow-up to better assess sustained clinical benefits.
-            </p>
-        </div>
-
-        <!-- Abstract 2 -->
-        <div class="abstract-card p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4 abstract-title">2. The Impact of Telemedicine on Patient-Physician Communication in Primary Care: A Systematic Review</h2>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Introduction:</span> The widespread adoption of telemedicine has reshaped patient-physician interactions. This systematic review evaluates the current evidence regarding how telemedicine modalities affect the quality of patient-physician communication in primary care settings.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Methods:</span> A search of MEDLINE, Web of Science, and CINAHL was performed for studies on telemedicine and communication published between 2018 and 2023. Studies were screened for relevance, and data was extracted on communication quality measures, including patient satisfaction, perceived empathy, and information exchange.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Results:</span> Our analysis of 32 included studies revealed mixed results. While some studies reported comparable communication quality in telemedicine and in-person visits, a significant number indicated challenges with non-verbal cues and establishing rapport. Qualitative synthesis identified a need for standardized training for physicians and patients on effective virtual communication.
-            </p>
-            
-            <p>
-                <span class="font-bold section-heading">Conclusion:</span> Telemedicine's effect on communication is complex. While convenient, it requires targeted strategies to preserve the quality of the patient-physician relationship.
-            </p>
-        </div>
-        
-        <!-- Abstract 3 -->
-        <div class="abstract-card p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4 abstract-title">3. Efficacy of Virtual Reality-Based Pain Management in Hospitalized Patients: A Meta-Analysis</h2>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Introduction:</span> Virtual reality (VR) offers an innovative non-pharmacological approach to pain management. This systematic review and meta-analysis assess the efficacy of VR interventions in reducing pain levels among hospitalized patients.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Methods:</span> We searched major databases for randomized controlled trials (RCTs) comparing VR interventions to standard care or placebo for pain management in hospital settings. A quality assessment was performed using the Cochrane risk-of-bias tool. A meta-analysis of included RCTs was conducted to calculate the pooled effect size on pain scores.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Results:</span> Seven RCTs involving 500 patients were included. The meta-analysis demonstrated a statistically significant reduction in pain scores for patients in the VR group compared to control groups (Standardized Mean Difference = -0.65; 95% CI: -0.90 to -0.41). Subgroup analysis showed larger effects for procedural pain compared to chronic pain.
-            </p>
-            
-            <p>
-                <span class="font-bold section-heading">Conclusion:</span> VR is an effective adjunct therapy for pain management in hospitalized patients. Its implementation should be considered as part of a multi-modal pain strategy.
-            </p>
-        </div>
-
-        <!-- Abstract 4 -->
-        <div class="abstract-card p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4 abstract-title">4. The Role of Artificial Intelligence in Diagnosing Dermatological Conditions: A Systematic Review of Diagnostic Accuracy</h2>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Introduction:</span> Artificial intelligence (AI) has shown great potential in medical diagnostics, particularly in image-rich specialties like dermatology. This review synthesizes the evidence on the diagnostic accuracy of AI algorithms for common dermatological conditions.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Methods:</span> We conducted a systematic search of PubMed, Embase, and arXiv for studies evaluating the diagnostic accuracy of AI models (e.g., deep learning) for dermatological conditions. The primary outcome was diagnostic accuracy (sensitivity and specificity) against a gold standard (e.g., histopathology or expert clinical diagnosis).
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Results:</span> Twenty-five studies were included, predominantly focusing on melanoma detection. The results consistently showed that AI algorithms achieved high levels of sensitivity and specificity, often comparable to or exceeding the performance of individual dermatologists. However, the lack of external validation and the risk of selection bias were noted as common limitations.
-            </p>
-            
-            <p>
-                <span class="font-bold section-heading">Conclusion:</span> AI shows remarkable accuracy in diagnosing dermatological conditions, but its integration into clinical practice requires further rigorous validation across diverse patient populations.
-            </p>
-        </div>
-
-        <!-- Abstract 5 -->
-        <div class="abstract-card p-6 mb-8">
-            <h2 class="text-2xl font-semibold mb-4 abstract-title">5. Educational Interventions to Improve Hand Hygiene Compliance Among Healthcare Workers: A Systematic Review</h2>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Introduction:</span> Adherence to hand hygiene protocols is crucial for preventing healthcare-associated infections. This review aims to identify and synthesize evidence on the effectiveness of educational interventions designed to improve hand hygiene compliance among healthcare workers.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Methods:</span> A systematic search of MEDLINE, Scopus, and the Cochrane Library was performed for studies evaluating educational interventions. The PRISMA flow diagram was used to document the study selection process. Data on intervention type, duration, and post-intervention compliance rates were extracted and narratively synthesized.
-            </p>
-            
-            <p class="mb-2">
-                <span class="font-bold section-heading">Results:</span> Our review of 40 studies indicated that multi-modal educational interventions (e.g., combining lectures with real-time feedback and reminders) were more effective than single-component interventions. The observed effect on compliance was often short-lived, highlighting the need for sustained, ongoing educational efforts.
-            </p>
-            
-            <p>
-                <span class="font-bold section-heading">Conclusion:</span> Educational interventions can temporarily improve hand hygiene compliance. To achieve lasting change, a combination of educational, organizational, and technological strategies is likely required.
-            </p>
-        </div>
-
-    </div>
-            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-                 <canvas id="processFlowCanvas" width="800" height="600" class="mx-auto"></canvas>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg active">Example 1</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 2</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 3</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 4</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 5</button>
+                </div>
+                <div id="example-tab-content-container">
+                    <!-- Tab content will be dynamically generated here -->
+                </div>
             </div>
         </section>
 
@@ -328,6 +225,34 @@ Examples
                 activity: 'Groups are given a poorly written abstract and are asked to provide constructive feedback on how to improve it, ensuring all necessary components are present.'
             }
         ];
+        
+        const processData = [
+            {
+                title: 'Step 1: Frame the Question',
+                content: 'The first and most crucial step is to clearly define your research question. Using the PICO framework ($P$opulation, $I$ntervention, $C$omparison, $O$utcome) ensures your question is specific, answerable, and sets the stage for the entire review.'
+            },
+            {
+                title: 'Step 2: Develop a Protocol',
+                content: 'Once the question is defined, a detailed protocol is created. This document outlines the entire methodology of your review, including search strategies, inclusion/exclusion criteria, and how data will be extracted. Registering this protocol on a platform like PROSPERO ensures transparency and prevents duplication of effort.'
+            },
+            {
+                title: 'Step 3: Conduct the Search',
+                content: 'This step involves executing the comprehensive search strategy you developed in the protocol. It is vital to search multiple databases (e.g., PubMed, Embase, Cochrane) to minimize publication bias and find all relevant literature.'
+            },
+            {
+                title: 'Step 4: Screen and Select Studies',
+                content: 'The studies found in the search are screened in two stages. First, reviewers examine titles and abstracts to identify potentially relevant articles. Second, the full text of these articles is reviewed to determine if they meet the pre-defined inclusion criteria.'
+            },
+            {
+                title: 'Step 5: Extract Data',
+                content: 'For each study that passes the screening process, relevant data is extracted using a standardized form. This includes information about the participants, interventions, outcomes, and study design. Two independent reviewers perform this step to ensure accuracy.'
+            },
+            {
+                title: 'Step 6: Assess Quality & Synthesize Results',
+                content: 'The final step involves critically appraising the quality of each included study to identify potential biases. The data is then synthesized to present a summary of the findings, which may include a meta-analysis if appropriate. The results are presented in a final report or paper.'
+            }
+        ];
+
 
         const speakerData = [
             { name: 'Speaker 1', role: 'Seminar Lead', topic: 'Introduction' },
@@ -338,6 +263,44 @@ Examples
             { name: 'Speaker 6', role: 'Epidemiologist', topic: 'Module 3' },
             { name: 'Speaker 7', role: 'Biostatistician', topic: 'Module 4' },
             { name: 'Speaker 8', role: 'Journal Editor', topic: 'Module 5' }
+        ];
+
+        const abstractData = [
+            {
+                title: '1. Usage of Mobile Applications in Behavioral Health: A Systematic Literature Review',
+                intro: 'Mobile health (mHealth) applications are an emerging tool in behavioral health, offering new avenues for patient support and monitoring. This review aims to systematically analyze the efficacy, usability, and impact of mobile applications on patient outcomes in behavioral health settings.',
+                methods: 'A comprehensive search was conducted across PubMed, Embase, and PsycINFO using a predefined PICO framework. Two independent reviewers screened titles and abstracts, followed by full-text review, to identify randomized controlled trials and observational studies published between 2015 and 2024. Data on application features, patient population, intervention type, and outcomes were extracted and synthesized.',
+                results: 'The search yielded 45 studies meeting the inclusion criteria. Key findings indicate that applications offering cognitive-behavioral therapy (CBT) modules and real-time monitoring significantly improved patient self-reported mood and adherence to treatment plans. However, significant heterogeneity was observed in study design and outcome measures, precluding a formal meta-analysis.',
+                conclusion: 'Mobile applications show promise as a supplementary tool in behavioral health. Future research should standardize outcome measures and focus on long-term follow-up to better assess sustained clinical benefits.'
+            },
+            {
+                title: '2. The Impact of Telemedicine on Patient-Physician Communication in Primary Care: A Systematic Review',
+                intro: 'The widespread adoption of telemedicine has reshaped patient-physician interactions. This systematic review evaluates the current evidence regarding how telemedicine modalities affect the quality of patient-physician communication in primary care settings.',
+                methods: 'A search of MEDLINE, Web of Science, and CINAHL was performed for studies on telemedicine and communication published between 2018 and 2023. Studies were screened for relevance, and data was extracted on communication quality measures, including patient satisfaction, perceived empathy, and information exchange.',
+                results: 'Our analysis of 32 included studies revealed mixed results. While some studies reported comparable communication quality in telemedicine and in-person visits, a significant number indicated challenges with non-verbal cues and establishing rapport. Qualitative synthesis identified a need for standardized training for physicians and patients on effective virtual communication.',
+                conclusion: 'Telemedicine\'s effect on communication is complex. While convenient, it requires targeted strategies to preserve the quality of the patient-physician relationship.'
+            },
+            {
+                title: '3. Efficacy of Virtual Reality-Based Pain Management in Hospitalized Patients: A Meta-Analysis',
+                intro: 'Virtual reality (VR) offers an innovative non-pharmacological approach to pain management. This systematic review and meta-analysis assess the efficacy of VR interventions in reducing pain levels among hospitalized patients.',
+                methods: 'We searched major databases for randomized controlled trials (RCTs) comparing VR interventions to standard care or placebo for pain management in hospital settings. A quality assessment was performed using the Cochrane risk-of-bias tool. A meta-analysis of included RCTs was conducted to calculate the pooled effect size on pain scores.',
+                results: 'Seven RCTs involving 500 patients were included. The meta-analysis demonstrated a statistically significant reduction in pain scores for patients in the VR group compared to control groups (Standardized Mean Difference = -0.65; 95% CI: -0.90 to -0.41). Subgroup analysis showed larger effects for procedural pain compared to chronic pain.',
+                conclusion: 'VR is an effective adjunct therapy for pain management in hospitalized patients. Its implementation should be considered as part of a multi-modal pain strategy.'
+            },
+            {
+                title: '4. The Role of Artificial Intelligence in Diagnosing Dermatological Conditions: A Systematic Review of Diagnostic Accuracy',
+                intro: 'Artificial intelligence (AI) has shown great potential in medical diagnostics, particularly in image-rich specialties like dermatology. This review synthesizes the evidence on the diagnostic accuracy of AI algorithms for common dermatological conditions.',
+                methods: 'We conducted a systematic search of PubMed, Embase, and arXiv for studies evaluating the diagnostic accuracy of AI models (e.g., deep learning) for dermatological conditions. The primary outcome was diagnostic accuracy (sensitivity and specificity) against a gold standard (e.g., histopathology or expert clinical diagnosis).',
+                results: 'Twenty-five studies were included, predominantly focusing on melanoma detection. The results consistently showed that AI algorithms achieved high levels of sensitivity and specificity, often comparable to or exceeding the performance of individual dermatologists. However, the lack of external validation and the risk of selection bias were noted as common limitations.',
+                conclusion: 'AI shows remarkable accuracy in diagnosing dermatological conditions, but its integration into clinical practice requires further rigorous validation across diverse patient populations.'
+            },
+            {
+                title: '5. Educational Interventions to Improve Hand Hygiene Compliance Among Healthcare Workers: A Systematic Review',
+                intro: 'Adherence to hand hygiene protocols is crucial for preventing healthcare-associated infections. This review aims to identify and synthesize evidence on the effectiveness of educational interventions designed to improve hand hygiene compliance among healthcare workers.',
+                methods: 'A systematic search of MEDLINE, Scopus, and the Cochrane Library was performed for studies evaluating educational interventions. The PRISMA flow diagram was used to document the study selection process. Data on intervention type, duration, and post-intervention compliance rates were extracted and narratively synthesized.',
+                results: 'Our review of 40 studies indicated that multi-modal educational interventions (e.g., combining lectures with real-time feedback and reminders) were more effective than single-component interventions. The observed effect on compliance was often short-lived, highlighting the need for sustained, ongoing educational efforts.',
+                conclusion: 'Educational interventions can temporarily improve hand hygiene compliance. To achieve lasting change, a combination of educational, organizational, and technological strategies is likely required.'
+            }
         ];
 
         function showSection(id) {
@@ -393,6 +356,77 @@ Examples
 
             const tabButtons = document.querySelectorAll('.module-tab');
             const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach((button, index) => {
+                if (index === 0) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents[index].classList.add('active');
+                });
+            });
+        }
+        
+        function populateProcessFlowTabs() {
+            const tabsContainer = document.getElementById('process-tab-content-container');
+            const tabButtons = document.querySelectorAll('.process-tab');
+            let tabsHtml = '';
+
+            processData.forEach((step, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                tabsHtml += `
+                    <div class="tab-content p-4 ${isActive}" data-tab-id="process-${index + 1}">
+                        <h3 class="text-2xl font-semibold mb-2 text-gray-800">${step.title}</h3>
+                        <p>${step.content}</p>
+                    </div>
+                `;
+            });
+            tabsContainer.innerHTML = tabsHtml;
+            const tabContents = document.querySelectorAll('#process-tab-content-container .tab-content');
+
+            tabButtons.forEach((button, index) => {
+                if (index === 0) {
+                    button.classList.add('active');
+                }
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    tabContents[index].classList.add('active');
+                });
+            });
+        }
+
+        function populateAbstractTabs() {
+            const tabsContainer = document.getElementById('example-tab-content-container');
+            let tabsHtml = '';
+            abstractData.forEach((abstract, index) => {
+                const isActive = index === 0 ? 'active' : '';
+                tabsHtml += `
+                    <div class="tab-content p-4 ${isActive}" data-tab-id="example-${index + 1}">
+                        <h3 class="text-2xl font-semibold mb-4 abstract-title">${abstract.title}</h3>
+                        <p class="mb-2">
+                            <span class="font-bold section-heading">Introduction:</span> ${abstract.intro}
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-bold section-heading">Methods:</span> ${abstract.methods}
+                        </p>
+                        <p class="mb-2">
+                            <span class="font-bold section-heading">Results:</span> ${abstract.results}
+                        </p>
+                        <p>
+                            <span class="font-bold section-heading">Conclusion:</span> ${abstract.conclusion}
+                        </p>
+                    </div>
+                `;
+            });
+            tabsContainer.innerHTML = tabsHtml;
+
+            const tabButtons = document.querySelectorAll('.example-tab');
+            const tabContents = document.querySelectorAll('#example-tab-content-container .tab-content');
 
             tabButtons.forEach((button, index) => {
                 if (index === 0) {
@@ -490,86 +524,21 @@ Examples
                         }
                     },
                     y: {
-                        grid: {
-                            display: false
-                        }
+                        stacked: true
                     }
                 }
             }
         };
 
-        new Chart(document.getElementById('agendaChart'), agendaConfig);
-
-        function drawProcessFlow() {
-            const canvas = document.getElementById('processFlowCanvas');
-            const ctx = canvas.getContext('2d');
-            const width = canvas.width;
-            const height = canvas.height;
-
-            const steps = [
-                { text: 'Frame Question (PICO)', x: width * 0.2, y: height * 0.15 },
-                { text: 'Develop Protocol', x: width * 0.5, y: height * 0.15 },
-                { text: 'Literature Search', x: width * 0.8, y: height * 0.15 },
-                { text: 'Screen Studies', x: width * 0.8, y: height * 0.5 },
-                { text: 'Extract Data', x: width * 0.5, y: height * 0.5 },
-                { text: 'Assess Quality', x: width * 0.2, y: height * 0.5 },
-                { text: 'Synthesize & Analyze', x: width * 0.2, y: height * 0.85 },
-                { text: 'Write & Publish', x: width * 0.5, y: height * 0.85 },
-            ];
-
-            function drawArrow(from, to) {
-                const headlen = 10;
-                const dx = to.x - from.x;
-                const dy = to.y - from.y;
-                const angle = Math.atan2(dy, dx);
-                ctx.beginPath();
-                ctx.moveTo(from.x, from.y);
-                ctx.lineTo(to.x, to.y);
-                ctx.lineTo(to.x - headlen * Math.cos(angle - Math.PI / 6), to.y - headlen * Math.sin(angle - Math.PI / 6));
-                ctx.moveTo(to.x, to.y);
-                ctx.lineTo(to.x - headlen * Math.cos(angle + Math.PI / 6), to.y - headlen * Math.sin(angle + Math.PI / 6));
-                ctx.strokeStyle = '#A5B4FC';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            }
-
-            function drawBox(step) {
-                ctx.fillStyle = '#E0E7FF';
-                ctx.strokeStyle = '#A5B4FC';
-                ctx.lineWidth = 2;
-                const textMetrics = ctx.measureText(step.text);
-                const boxWidth = textMetrics.width + 40;
-                const boxHeight = 50;
-                ctx.beginPath();
-                ctx.roundRect(step.x - boxWidth / 2, step.y - boxHeight / 2, boxWidth, boxHeight, [10]);
-                ctx.fill();
-                ctx.stroke();
-                ctx.fillStyle = '#3730A3';
-                ctx.font = '14px Inter';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(step.text, step.x, step.y);
-            }
-            
-            ctx.clearRect(0, 0, width, height);
-
-            drawArrow(steps[0], steps[1]);
-            drawArrow(steps[1], steps[2]);
-            drawArrow({x: steps[2].x, y: steps[2].y + 25}, {x: steps[3].x, y: steps[3].y - 25});
-            drawArrow(steps[3], steps[4]);
-            drawArrow(steps[4], steps[5]);
-            drawArrow({x: steps[5].x, y: steps[5].y + 25}, {x: steps[6].x, y: steps[6].y - 25});
-            drawArrow(steps[6], steps[7]);
-            
-            steps.forEach(drawBox);
-        }
-
+        const agendaChart = new Chart(document.getElementById('agendaChart'), agendaConfig);
+        
+        // Initial setup calls
         populateTabs();
         populateSpeakers();
-        drawProcessFlow();
+        populateAbstractTabs();
+        populateProcessFlowTabs();
         showSection('overview');
     });
 </script>
-
 </body>
 </html>
