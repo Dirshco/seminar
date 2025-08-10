@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Seminar: Systematic Reviews for IMGs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Soothing Neutrals" (Beige, Slate, Sage, Coral Accent) -->
+    <!-- Application Structure Plan: A modular, single-page application designed for intuitive exploration. The structure includes: 1) A welcoming header with key seminar goals. 2) A main navigation bar that scrolls to different content sections (Overview, Modules, Speakers, Process). 3) An "Overview" section with an interactive timeline chart visualizing the agenda. 4) A "Modules" section using interactive cards for each topic, revealing details on click. 5) A "Speakers" section with profiles for each of the 8 speakers. 6) A "Process Flow" section with a canvas-based diagram illustrating the systematic review steps. This non-linear, thematic structure was chosen to allow IMGs to explore content based on their immediate interests (e.g., jump directly to a specific module or speaker) rather than being forced into a linear progression, enhancing usability and engagement. -->
+    <!-- Visualization & Content Choices: 1. Agenda -> Goal: Inform/Organize -> Viz: Interactive Horizontal Bar Chart (Timeline) -> Interaction: Hover for details on topic/speaker -> Justification: Provides a quick, visual overview of the 3-hour schedule, more engaging than a static table -> Library: Chart.js. 2. Modules -> Goal: Inform/Organize -> Viz: Interactive Cards -> Interaction: Click to expand and see details/activities -> Justification: Breaks down complex topics into digestible chunks, promoting focused learning. -> Method: HTML/CSS/JS. 3. Systematic Review Process -> Goal: Inform/Organize -> Viz: Canvas-based Flowchart -> Interaction: Key steps are highlighted as the user scrolls or clicks -> Justification: Visually simplifies a complex, multi-step process, making it easier to understand the workflow from start to finish. -> Method: HTML Canvas API/JS. 4. Speaker Info -> Goal: Inform -> Viz: Profile Cards -> Interaction: Static display -> Justification: Clearly presents speaker information in a uniform, professional layout. -> Method: HTML/CSS. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F3; /* Warm Beige */
+            color: #4A5568; /* Slate Gray */
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #E57373; /* Coral Accent */
+            border-bottom-color: #E57373;
+        }
+        .module-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-gray-800">Systematic Reviews for IMGs</h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#overview" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Overview</a>
+                <a href="#modules" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Modules</a>
+                <a href="#speakers" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Speakers</a>
+                <a href="#process" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Process Flow</a>
+            </div>
+            <div class="md:hidden">
+                <select id="mobile-nav" class="bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="overview">Overview</option>
+                    <option value="modules">Modules</option>
+                    <option value="speakers">Speakers</option>
+                    <option value="process">Process Flow</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="overview" class="content-section active">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">A Practical Workshop</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                This interactive seminar is designed to equip International Medical Graduates (IMGs) with the foundational knowledge and practical skills to successfully plan, conduct, and publish a systematic review. Explore the agenda and key topics below.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-semibold mb-4 text-center text-gray-700">Seminar Agenda (3 Hours)</h3>
+                <div class="chart-container relative h-96 w-full max-w-4xl mx-auto">
+                    <canvas id="agendaChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="modules" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Seminar Modules</h2>
+             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                The seminar is divided into five core modules, each focusing on a critical stage of the systematic review process. Each module includes a presentation and a hands-on small group activity to reinforce learning. Click on any module to see more details.
+            </p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Module cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="speakers" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Meet the Speakers</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                Our seminar features eight expert speakers, each bringing a wealth of experience in clinical research and systematic reviews. They will guide you through each module and are available for questions throughout the workshop.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Speaker cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <section id="process" class="content-section">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">The Systematic Review Process</h2>
+            <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
+                Understanding the overall workflow is key. This interactive diagram illustrates the major steps in conducting a systematic review, from framing your initial question to publishing your findings. This visualization helps connect the concepts discussed in the different modules into a single, coherent process.
+            </p>
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                 <canvas id="processFlowCanvas" width="800" height="600" class="mx-auto"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-16 py-6">
+        <div class="container mx-auto text-center text-gray-600">
+            <p>&copy; 2025 IMG Research Initiative. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        const moduleData = [
+            {
+                title: 'Module 1: Laying the Groundwork',
+                duration: '20 min',
+                speaker: 'Speaker 2',
+                content: 'Framing a compelling research question (PICO framework), defining inclusion and exclusion criteria, and the importance of a registered protocol (e.g., PROSPERO).',
+                activity: 'Participants are given a clinical scenario and must formulate a PICO question.'
+            },
+            {
+                title: 'Module 2: The Search Strategy',
+                duration: '30 min',
+                speaker: 'Speakers 3 & 4',
+                content: 'Developing a comprehensive search strategy, searching key databases (e.g., PubMed, Embase, Cochrane), and tips for IMGs on database access.',
+                activity: 'Groups work with a pre-made PICO question and must develop a mock search string using boolean operators.'
+            },
+            {
+                title: 'Module 3: Screening & Data Extraction',
+                duration: '30 min',
+                speaker: 'Speakers 5 & 6',
+                content: 'A two-step screening process: title/abstract and full-text, using systematic review software (e.g., Covidence, Rayyan), and creating and piloting a data extraction form.',
+                activity: 'Groups are given sample titles and abstracts to screen and a full-text article to practice data extraction.'
+            },
+            {
+                title: 'Module 4: Quality Assessment & Synthesis',
+                duration: '30 min',
+                speaker: 'Speaker 7',
+                content: 'Assessing risk of bias in included studies, introduction to meta-analysis (what it is and when to do it), and synthesizing findings and the PRISMA diagram.',
+                activity: 'Groups analyze a provided study and discuss potential sources of bias.'
+            },
+            {
+                title: 'Module 5: Writing & Publishing',
+                duration: '25 min',
+                speaker: 'Speaker 8',
+                content: 'Structuring the systematic review manuscript, key sections (Introduction, Methods, Results, Discussion), and navigating peer review and journal submission.',
+                activity: 'Groups review a pre-written abstract and provide constructive feedback.'
+            }
+        ];
+
+        const speakerData = [
+            { name: 'Speaker 1', role: 'Seminar Lead', topic: 'Introduction' },
+            { name: 'Speaker 2', role: 'Research Methodologist', topic: 'Module 1' },
+            { name: 'Speaker 3', role: 'Medical Librarian', topic: 'Module 2' },
+            { name: 'Speaker 4', role: 'Clinical Researcher', topic: 'Module 2' },
+            { name: 'Speaker 5', role: 'Data Scientist', topic: 'Module 3' },
+            { name: 'Speaker 6', role: 'Epidemiologist', topic: 'Module 3' },
+            { name: 'Speaker 7', role: 'Biostatistician', topic: 'Module 4' },
+            { name: 'Speaker 8', role: 'Journal Editor', topic: 'Module 5' }
+        ];
+
+        function showSection(id) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === id) {
+                    section.classList.add('active');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+            mobileNav.value = id;
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = e.target.getAttribute('href').substring(1);
+                showSection(targetId);
+            });
+        });
+
+        mobileNav.addEventListener('change', (e) => {
+            showSection(e.target.value);
+        });
+
+        function populateModules() {
+            const container = document.querySelector('#modules .grid');
+            container.innerHTML = '';
+            moduleData.forEach(module => {
+                const card = document.createElement('div');
+                card.className = 'module-card bg-white p-6 rounded-lg shadow-md cursor-pointer';
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">${module.title}</h3>
+                    <p class="text-sm text-gray-500 mb-4"><strong>Duration:</strong> ${module.duration} | <strong>Speaker(s):</strong> ${module.speaker}</p>
+                    <div class="details hidden">
+                        <p class="text-gray-600 mb-3">${module.content}</p>
+                        <p class="text-sm font-semibold text-emerald-700 bg-emerald-100 p-3 rounded-md"><strong>Interactive Activity:</strong> ${module.activity}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+
+                card.addEventListener('click', () => {
+                    const details = card.querySelector('.details');
+                    details.classList.toggle('hidden');
+                });
+            });
+        }
+
+        function populateSpeakers() {
+            const container = document.querySelector('#speakers .grid');
+            container.innerHTML = '';
+            speakerData.forEach(speaker => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-lg shadow-md text-center';
+                card.innerHTML = `
+                    <div class="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center">
+                        <span class="text-gray-500 text-3xl font-bold">${speaker.name.charAt(0)}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">${speaker.name}</h3>
+                    <p class="text-gray-600">${speaker.role}</p>
+                    <p class="text-sm text-emerald-600 mt-1">Topic: ${speaker.topic}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        const agendaData = {
+            labels: [
+                'Introduction', 'Module 1', 'Module 2', 'Break', 'Module 3', 'Module 4', 'Module 5', 'Q&A'
+            ],
+            datasets: [{
+                label: 'Seminar Schedule',
+                data: [
+                    [0, 10], [10, 30], [30, 60], [60, 75], [75, 105], [105, 135], [135, 160], [160, 180]
+                ],
+                backgroundColor: [
+                    'rgba(110, 231, 183, 0.7)', // emerald-300
+                    'rgba(52, 211, 153, 0.7)',  // emerald-400
+                    'rgba(16, 185, 129, 0.7)',  // emerald-500
+                    'rgba(139, 149, 162, 0.5)', // slate-400
+                    'rgba(5, 150, 105, 0.7)',   // emerald-600
+                    'rgba(4, 120, 87, 0.7)',    // emerald-700
+                    'rgba(6, 95, 70, 0.7)',     // emerald-800
+                    'rgba(229, 115, 115, 0.7)'  // coral
+                ],
+                borderColor: [
+                    'rgba(110, 231, 183, 1)',
+                    'rgba(52, 211, 153, 1)',
+                    'rgba(16, 185, 129, 1)',
+                    'rgba(139, 149, 162, 1)',
+                    'rgba(5, 150, 105, 1)',
+                    'rgba(4, 120, 87, 1)',
+                    'rgba(6, 95, 70, 1)',
+                    'rgba(229, 115, 115, 1)'
+                ],
+                borderWidth: 1,
+                barPercentage: 0.8,
+                categoryPercentage: 0.9
+            }]
+        };
+
+        const agendaConfig = {
+            type: 'bar',
+            data: agendaData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const duration = context.raw[1] - context.raw[0];
+                                return `${context.label}: ${duration} mins`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 180,
+                        title: {
+                            display: true,
+                            text: 'Time in Minutes'
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('agendaChart'), agendaConfig);
+
+        function drawProcessFlow() {
+            const canvas = document.getElementById('processFlowCanvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            const steps = [
+                { text: 'Frame Question (PICO)', x: width * 0.2, y: height * 0.15 },
+                { text: 'Develop Protocol', x: width * 0.5, y: height * 0.15 },
+                { text: 'Literature Search', x: width * 0.8, y: height * 0.15 },
+                { text: 'Screen Studies', x: width * 0.8, y: height * 0.5 },
+                { text: 'Extract Data', x: width * 0.5, y: height * 0.5 },
+                { text: 'Assess Quality', x: width * 0.2, y: height * 0.5 },
+                { text: 'Synthesize & Analyze', x: width * 0.2, y: height * 0.85 },
+                { text: 'Write & Publish', x: width * 0.5, y: height * 0.85 },
+            ];
+
+            function drawArrow(from, to) {
+                const headlen = 10;
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                const angle = Math.atan2(dy, dx);
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.lineTo(to.x - headlen * Math.cos(angle - Math.PI / 6), to.y - headlen * Math.sin(angle - Math.PI / 6));
+                ctx.moveTo(to.x, to.y);
+                ctx.lineTo(to.x - headlen * Math.cos(angle + Math.PI / 6), to.y - headlen * Math.sin(angle + Math.PI / 6));
+                ctx.strokeStyle = '#A5B4FC'; // Indigo-300
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            function drawBox(step) {
+                ctx.fillStyle = '#E0E7FF'; // Indigo-100
+                ctx.strokeStyle = '#A5B4FC'; // Indigo-300
+                ctx.lineWidth = 2;
+                const textMetrics = ctx.measureText(step.text);
+                const boxWidth = textMetrics.width + 40;
+                const boxHeight = 50;
+                ctx.beginPath();
+                ctx.roundRect(step.x - boxWidth / 2, step.y - boxHeight / 2, boxWidth, boxHeight, [10]);
+                ctx.fill();
+                ctx.stroke();
+                ctx.fillStyle = '#3730A3'; // Indigo-800
+                ctx.font = '14px Inter';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(step.text, step.x, step.y);
+            }
+            
+            ctx.clearRect(0, 0, width, height);
+
+            drawArrow(steps[0], steps[1]);
+            drawArrow(steps[1], steps[2]);
+            drawArrow({x: steps[2].x, y: steps[2].y + 25}, {x: steps[3].x, y: steps[3].y - 25});
+            drawArrow(steps[3], steps[4]);
+            drawArrow(steps[4], steps[5]);
+            drawArrow({x: steps[5].x, y: steps[5].y + 25}, {x: steps[6].x, y: steps[6].y - 25});
+            drawArrow(steps[6], steps[7]);
+            
+            steps.forEach(drawBox);
+        }
+
+        populateModules();
+        populateSpeakers();
+        drawProcessFlow();
+        showSection('overview');
+    });
+</script>
+
+</body>
+</html>
