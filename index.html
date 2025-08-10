@@ -254,16 +254,19 @@
         ];
 
 
+        / Speaker data with placeholder images
         const speakerData = [
-            { name: 'Ahmed Khalifa', role: 'TGRF Fellow', topic: 'Introduction' },
-            { name: 'Sana Ibrahim', role: 'TGRF Fellow', topic: 'Module 1' },
-            { name: 'Sujood Elhassan', role: 'TGRF Fellow', topic: 'Module 2' },
-            { name: 'Rofida Ahmed', role: 'CTGRF Fellow', topic: 'Module 2' },
-            { name: 'Reem Ahmed', role: 'TGRF Fellow', topic: 'Module 3' },
-            { name: 'Ayman Hassan', role: 'TGRF Fellow', topic: 'Module 3' },
-            { name: 'Wiam Osman', role: 'TGRF Fellow', topic: 'Module 4' },
-            { name: 'Limia Salih', role: 'TGRF Fellow', topic: 'Module 5' }
+            { name: 'Dr. Ahmed Khalifa', role: 'Seminar Lead', topic: 'Introduction', imageUrl: 'https://placehold.co/150x150/e0e0e0/ffffff?text=JD' },
+            { name: 'Dr. Sana Ibrahim', role: 'Research Methodologist', topic: 'Module 1', imageUrl: 'https://placehold.co/150x150/d0d0d0/ffffff?text=JS' },
+            { name: 'Dr. Sujood Elhassan', role: 'Medical Librarian', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/c0c0c0/ffffff?text=EC' },
+            { name: 'Dr. Rofida Ahmed', role: 'Clinical Researcher', topic: 'Module 2', imageUrl: 'https://placehold.co/150x150/b0b0b0/ffffff?text=ML' },
+            { name: 'Dr. Reem Ahmed', role: 'Data Scientist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/a0a0a0/ffffff?text=SR' },
+            { name: 'Dr. Ayman Hassan', role: 'Epidemiologist', topic: 'Module 3', imageUrl: 'https://placehold.co/150x150/909090/ffffff?text=DK' },
+            { name: 'Dr. Wiam Osman', role: 'Biostatistician', topic: 'Module 4', imageUrl: 'https://placehold.co/150x150/808080/ffffff?text=OW' },
+            { name: 'Dr. Wiam Osman', role: 'Biostatistician', topic: 'Module 4', imageUrl: 'https://placehold.co/150x150/808080/ffffff?text=JW' },
+            { name: 'Dr. Limia Salih', role: 'Moderator', topic: 'Moderator', imageUrl: 'https://placehold.co/150x150/707070/ffffff?text=PJ' }
         ];
+
 
         const abstractData = [
             {
@@ -441,17 +444,17 @@
             });
         }
 
-        function populateSpeakers() {
+    function populateSpeakers() {
             const container = document.querySelector('#speakers .grid');
             container.innerHTML = '';
             speakerData.forEach(speaker => {
                 const card = document.createElement('div');
                 card.className = 'bg-white p-6 rounded-lg shadow-md text-center';
                 card.innerHTML = `
-                    <div class="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center">
-                        <span class="text-gray-500 text-3xl font-bold">${speaker.name.charAt(0)}</span>
+                    <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
+                        <img src="${speaker.imageUrl}" alt="Portrait of ${speaker.name}" class="w-full h-full object-cover rounded-full">
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800">Dr. ${speaker.name}</h3>
+                    <h3 class="text-lg font-bold text-gray-800">${speaker.name}</h3>
                     <p class="text-gray-600">${speaker.role}</p>
                     <p class="text-sm text-emerald-600 mt-1">Topic: ${speaker.topic}</p>
                 `;
