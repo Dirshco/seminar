@@ -255,14 +255,14 @@
 
 
         const speakerData = [
-            { name: 'Dr. Ahmed Khalifa', role: 'TGRF Fellow', topic: 'Introduction' },
-            { name: 'Speaker 2', role: 'TGRF Fellow', topic: 'Module 1' },
-            { name: 'Speaker 3', role: 'TGRF Fellow', topic: 'Module 2' },
-            { name: 'Speaker 4', role: 'CTGRF Fellow', topic: 'Module 2' },
-            { name: 'Speaker 5', role: 'TGRF Fellow', topic: 'Module 3' },
-            { name: 'Speaker 6', role: 'TGRF Fellow', topic: 'Module 3' },
-            { name: 'Speaker 7', role: 'TGRF Fellow', topic: 'Module 4' },
-            { name: 'Speaker 8', role: 'TGRF Fellow', topic: 'Module 5' }
+            { name: 'Ahmed Khalifa', role: 'TGRF Fellow', topic: 'Introduction' },
+            { name: 'Sana Ibrahim', role: 'TGRF Fellow', topic: 'Module 1' },
+            { name: 'Sujood Elhassan', role: 'TGRF Fellow', topic: 'Module 2' },
+            { name: 'Rofida Ahmed', role: 'CTGRF Fellow', topic: 'Module 2' },
+            { name: 'Reem Ahmed', role: 'TGRF Fellow', topic: 'Module 3' },
+            { name: 'Ayman Hassan', role: 'TGRF Fellow', topic: 'Module 3' },
+            { name: 'Wiam Osman', role: 'TGRF Fellow', topic: 'Module 4' },
+            { name: 'Limia Salih', role: 'TGRF Fellow', topic: 'Module 5' }
         ];
 
         const abstractData = [
@@ -451,7 +451,7 @@
                     <div class="w-24 h-24 rounded-full bg-gray-300 mx-auto mb-4 flex items-center justify-center">
                         <span class="text-gray-500 text-3xl font-bold">${speaker.name.charAt(0)}</span>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-800">${speaker.name}</h3>
+                    <h3 class="text-lg font-bold text-gray-800">Dr. ${speaker.name}</h3>
                     <p class="text-gray-600">${speaker.role}</p>
                     <p class="text-sm text-emerald-600 mt-1">Topic: ${speaker.topic}</p>
                 `;
