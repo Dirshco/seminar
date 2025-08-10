@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detailed Seminar Modules & Examples</title>
+    <!-- Use Tailwind CSS for responsive and modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js for the agenda chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Use Inter font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Custom CSS to improve styling and transitions */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #F5F5F3;
@@ -69,11 +73,12 @@
 </head>
 <body class="antialiased">
 
+    <!-- Header and Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-xl md:text-2xl font-bold text-gray-800">Systematic Reviews for IMGs</h1>
             <div class="hidden md:flex space-x-8">
-                <a href="#overview" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Overview</a>
+                <a href="#overview" class="nav-link text-gray-600 border-b-2 border-transparent pb-1 active">Overview</a>
                 <a href="#modules" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Modules</a>
                 <a href="#speakers" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Speakers</a>
                 <a href="#process" class="nav-link text-gray-600 border-b-2 border-transparent pb-1">Process Flow</a>
@@ -91,9 +96,11 @@
         </nav>
     </header>
 
+    <!-- Main Content Area -->
     <main class="container mx-auto px-6 py-12">
 
-        <section id="overview" class="content-section">
+        <!-- Overview Section -->
+        <section id="overview" class="content-section active">
             <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">A Practical Workshop</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
                 This interactive seminar is designed to equip International Medical Graduates (IMGs) with the foundational knowledge and practical skills to successfully plan, conduct, and publish a systematic review. Explore the agenda and key topics below.
@@ -106,6 +113,7 @@
             </div>
         </section>
 
+        <!-- Modules Section -->
         <section id="modules" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Detailed Seminar Modules</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
@@ -113,18 +121,19 @@
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 1</button>
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 2</button>
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 3</button>
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 4</button>
-                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Module 5</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="module-1">Module 1</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="module-2">Module 2</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="module-3">Module 3</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="module-4">Module 4</button>
+                    <button class="module-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="module-5">Module 5</button>
                 </div>
                 <div id="tab-content-container">
-                    <!-- Tab content will be dynamically generated here -->
+                    <!-- Tab content will be dynamically generated here by JS -->
                 </div>
             </div>
         </section>
 
+        <!-- Speakers Section -->
         <section id="speakers" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Meet the Speakers</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
@@ -135,6 +144,7 @@
             </div>
         </section>
 
+        <!-- Process Section -->
         <section id="process" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">The Systematic Review Process</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
@@ -142,19 +152,20 @@
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 1</button>
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 2</button>
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 3</button>
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 4</button>
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 5</button>
-                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Step 6</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-1">Step 1</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-2">Step 2</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-3">Step 3</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-4">Step 4</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-5">Step 5</button>
+                    <button class="process-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="process-6">Step 6</button>
                 </div>
                 <div id="process-tab-content-container">
-                    <!-- Process flow content will be dynamically generated here -->
+                    <!-- Process flow content will be dynamically generated here by JS -->
                 </div>
             </div>
         </section>
 
+        <!-- Examples Section -->
         <section id="examples" class="content-section">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Abstract Examples</h2>
             <p class="text-center max-w-3xl mx-auto mb-12 text-lg">
@@ -162,21 +173,22 @@
             </p>
             <div class="bg-white p-6 rounded-lg shadow-lg">
                 <div class="flex flex-wrap justify-center mb-6 border-b-2 border-gray-200">
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 1</button>
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 2</button>
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 3</button>
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 4</button>
-                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg">Example 5</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="example-1">Example 1</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="example-2">Example 2</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="example-3">Example 3</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="example-4">Example 4</button>
+                    <button class="example-tab px-4 py-2 text-sm md:text-base font-semibold rounded-t-lg" data-tab-id="example-5">Example 5</button>
                 </div>
                 <div id="example-tab-content-container">
-                    <!-- Tab content will be dynamically generated here -->
+                    <!-- Tab content will be dynamically generated here by JS -->
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-white mt-16 py-6">
+    <!-- Footer -->
+    <footer class="bg-white mt-16 py-6 shadow-sm">
         <div class="container mx-auto text-center text-gray-600">
             <p>&copy; 2025 TGRF - The Combined Research Foundation. All rights reserved.</p>
         </div>
@@ -184,6 +196,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // --- Data Definitions (Unchanged from original) ---
         const sections = document.querySelectorAll('.content-section');
         const navLinks = document.querySelectorAll('.nav-link');
         const mobileNav = document.getElementById('mobile-nav');
@@ -253,7 +266,6 @@
             }
         ];
 
-        // Corrected speaker data: removed duplicate entry
         const speakerData = [
             { name: 'Dr. Ahmed Khalifa', role: 'Seminar Lead', topic: 'Introduction', imageUrl: 'https://placehold.co/150x150/e0e0e0/ffffff?text=AK' },
             { name: 'Dr. Sana Ibrahim', role: 'Research Methodologist', topic: 'Module 1', imageUrl: 'https://placehold.co/150x150/d0d0d0/ffffff?text=SI' },
@@ -303,6 +315,9 @@
             }
         ];
 
+        // --- Core Functions for Page Interaction ---
+
+        // Function to toggle the visibility of a section and update navigation links
         function showSection(id) {
             sections.forEach(section => {
                 section.classList.remove('active');
@@ -319,6 +334,7 @@
             mobileNav.value = id;
         }
 
+        // Add event listeners for desktop navigation links
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -327,13 +343,53 @@
             });
         });
 
+        // Add event listener for mobile navigation dropdown
         mobileNav.addEventListener('change', (e) => {
             showSection(e.target.value);
         });
 
-        function populateTabs() {
+        // --- Functions to Dynamically Populate Content ---
+
+        // Renders the seminar agenda as a pie chart using Chart.js
+        function renderAgendaChart() {
+            const ctx = document.getElementById('agendaChart').getContext('2d');
+            const agendaChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Module 1 (30 mins)', 'Module 2 (30 mins)', 'Module 3 (45 mins)', 'Module 4 (45 mins)', 'Module 5 (30 mins)'],
+                    datasets: [{
+                        data: [30, 30, 45, 45, 30],
+                        backgroundColor: ['#e57373', '#f06292', '#ba68c8', '#9575cd', '#7986cb'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(tooltipItem) {
+                                    const label = tooltipItem.label || '';
+                                    const value = tooltipItem.raw;
+                                    return `${label}: ${value} mins`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Populates the Module section with tabs and content
+        function populateModuleTabsAndContent() {
             const tabsContainer = document.getElementById('tab-content-container');
+            const tabButtons = document.querySelectorAll('.module-tab');
             let tabsHtml = '';
+            
             moduleData.forEach((module, index) => {
                 const isActive = index === 0 ? 'active' : '';
                 tabsHtml += `
@@ -354,7 +410,6 @@
             });
             tabsContainer.innerHTML = tabsHtml;
 
-            const tabButtons = document.querySelectorAll('.module-tab');
             const tabContents = document.querySelectorAll('.tab-content');
 
             tabButtons.forEach((button, index) => {
@@ -370,7 +425,8 @@
             });
         }
         
-        function populateProcessFlowTabs() {
+        // Populates the Process flow section with tabs and content
+        function populateProcessFlowTabsAndContent() {
             const tabsContainer = document.getElementById('process-tab-content-container');
             const tabButtons = document.querySelectorAll('.process-tab');
             let tabsHtml = '';
@@ -399,27 +455,47 @@
                 });
             });
         }
+        
+        // Populates the speakers section with speaker cards
+        function populateSpeakers() {
+            const container = document.getElementById('speakers-container');
+            let speakersHtml = '';
+            speakerData.forEach(speaker => {
+                speakersHtml += `
+                    <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center text-center">
+                        <img src="${speaker.imageUrl}" onerror="this.onerror=null;this.src='https://placehold.co/150x150/d1d5db/4b5563?text=IMG'" alt="${speaker.name}" class="rounded-full w-24 h-24 mb-4 object-cover">
+                        <h4 class="text-xl font-bold text-gray-800 mb-1">${speaker.name}</h4>
+                        <p class="text-gray-600 font-medium">${speaker.role}</p>
+                        <p class="text-sm text-gray-500">${speaker.topic}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = speakersHtml;
+        }
 
-        function populateAbstractTabs() {
+        // Populates the Abstract Examples section with tabs and content
+        function populateAbstractTabsAndContent() {
             const tabsContainer = document.getElementById('example-tab-content-container');
             let tabsHtml = '';
             abstractData.forEach((abstract, index) => {
                 const isActive = index === 0 ? 'active' : '';
                 tabsHtml += `
                     <div class="tab-content p-4 ${isActive}" data-tab-id="example-${index + 1}">
-                        <h3 class="text-2xl font-semibold mb-4 abstract-title">${abstract.title}</h3>
-                        <p class="mb-2">
-                            <span class="font-bold section-heading">Introduction:</span> ${abstract.intro}
-                        </p>
-                        <p class="mb-2">
-                            <span class="font-bold section-heading">Methods:</span> ${abstract.methods}
-                        </p>
-                        <p class="mb-2">
-                            <span class="font-bold section-heading">Results:</span> ${abstract.results}
-                        </p>
-                        <p>
-                            <span class="font-bold section-heading">Conclusion:</span> ${abstract.conclusion}
-                        </p>
+                        <div class="bg-white p-6 rounded-lg shadow-lg abstract-card">
+                            <h3 class="text-2xl font-semibold mb-4 abstract-title">${abstract.title}</h3>
+                            <p class="mb-2">
+                                <span class="font-bold section-heading">Introduction:</span> ${abstract.intro}
+                            </p>
+                            <p class="mb-2">
+                                <span class="font-bold section-heading">Methods:</span> ${abstract.methods}
+                            </p>
+                            <p class="mb-2">
+                                <span class="font-bold section-heading">Results:</span> ${abstract.results}
+                            </p>
+                            <p>
+                                <span class="font-bold section-heading">Conclusion:</span> ${abstract.conclusion}
+                            </p>
+                        </div>
                     </div>
                 `;
             });
@@ -441,80 +517,13 @@
             });
         }
 
-        function populateSpeakers() {
-            const container = document.getElementById('speakers-container');
-            let speakersHtml = '';
-            speakerData.forEach(speaker => {
-                speakersHtml += `
-                    <div class="abstract-card p-4 text-center">
-                        <img src="${speaker.imageUrl}" alt="${speaker.name}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
-                        <h4 class="font-semibold text-lg text-gray-800">${speaker.name}</h4>
-                        <p class="text-sm text-gray-600">${speaker.role}</p>
-                        <p class="text-xs text-gray-400 mt-1">Topic: ${speaker.topic}</p>
-                    </div>
-                `;
-            });
-            container.innerHTML = speakersHtml;
-        }
 
-        function createAgendaChart() {
-            const ctx = document.getElementById('agendaChart').getContext('2d');
-            const agendaChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Module 1 (30 min)', 'Module 2 (30 min)', 'Module 3 (45 min)', 'Module 4 (45 min)', 'Module 5 (30 min)'],
-                    datasets: [{
-                        data: [30, 30, 45, 45, 30],
-                        backgroundColor: [
-                            '#E57373', // A warm, engaging color
-                            '#81C784', // A fresh, clinical color
-                            '#64B5F6', // A calm, intellectual color
-                            '#FFB74D', // A bright, energetic color
-                            '#BA68C8'  // A creative, dynamic color
-                        ],
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    size: 14
-                                },
-                                color: '#4A5568'
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.raw !== null) {
-                                        label += context.raw + ' min';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Call all the functions to populate the page and set the initial state
-        populateTabs();
-        populateProcessFlowTabs();
-        populateAbstractTabs();
+        // --- Initial Function Calls on Page Load ---
+        renderAgendaChart();
+        populateModuleTabsAndContent();
+        populateProcessFlowTabsAndContent();
         populateSpeakers();
-        createAgendaChart();
-        showSection('overview');
-
+        populateAbstractTabsAndContent();
     });
 </script>
 </body>
